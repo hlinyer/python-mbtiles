@@ -63,7 +63,7 @@ class Mbtile:
                       and tile_row = %s''' % (self.zoom,self.col,self.row))
         row = c.fetchone()
         if not row:
-            return None
+            return b''
 
         return bytes(row[0])
 
