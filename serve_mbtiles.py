@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     thisdir = os.path.abspath(os.path.dirname(__file__))
     tilesets = [
-        ('test', os.path.join(thisdir, 'data', 'road-trip-wilderness.mbtiles'), ['png','json'],),
+        ('local', os.path.join(thisdir, 'data', 'local.mbtiles'), ['png'],),
     ]
 
     for t in tilesets:
@@ -68,5 +68,5 @@ if __name__ == "__main__":
             )
 
     application = tornado.web.Application(urls, debug=True)
-    application.listen(8988)
+    application.listen(8090)
     tornado.ioloop.IOLoop.instance().start()
