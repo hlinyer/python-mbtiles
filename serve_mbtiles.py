@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import os
+import configparser
 from mbtiles import MbtileSet
 
 class MainHandler(tornado.web.RequestHandler):
@@ -54,9 +55,23 @@ if __name__ == "__main__":
     urls = [(r"/", MainHandler),]
 
     thisdir = os.path.abspath(os.path.dirname(__file__))
-    tilesets = [
-        ('local', os.path.join(thisdir, 'data', 'local.mbtiles'), ['png'],),
-    ]
+    tilesets = []
+
+    # get tilesets from configuration
+    config = configparser.ConfigParser()
+    try:
+        config.read('mbtiles_bases.conf')
+    except Exception as e:
+        exit('no configuration file found, exiting...')
+    for database in config:
+        if database != 'DEFAULT':
+            try:
+                base_name = config.get(database,'name')
+                base_path = config.get(database,'path')
+                base_formats = config.get(database,'formats')
+                tilesets.append((base_name, os.path.join(thisdir, base_path), base_formats.split(',')))
+            except Exception as e:
+                exit('Wrong configuration for base ' + database + '. Check the configuration files. ' + e)
 
     for t in tilesets:
         for ext in t[2]:
