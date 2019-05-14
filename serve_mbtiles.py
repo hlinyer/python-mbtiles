@@ -84,4 +84,5 @@ if __name__ == "__main__":
 
     application = tornado.web.Application(urls, debug=True)
     application.listen(8090)
+    print('Tile server started ...')
     tornado.ioloop.IOLoop.instance().start()
