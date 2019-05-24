@@ -1,4 +1,4 @@
-Fetched from https://github.com/perrygeo/python-mbtiles
+Forked from https://github.com/perrygeo/python-mbtiles
 
 ## python-mbtiles
 
